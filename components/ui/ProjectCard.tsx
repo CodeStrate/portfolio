@@ -2,7 +2,7 @@ import type { ProjectEntry } from "@/lib/content";
 
 const visualLabels: Record<ProjectEntry["visual"], string[]> = {
   hub: ["checkpoint.bin", "verify ✓", "publish → hub"],
-  arena: ["task_01", "pass / fail", "leaderboard ↑"],
+  arena: ["T1–T7", "Champions T8–T9", "Agentic V2 ↗"],
   search: ["query", "vector + BM25", "sources ↗"],
   documents: ["PDF", "DOCX", "XLSX", "PPTX"],
   pedagogy: ["textbook.pdf", "structured.json", "class.xlsx"],

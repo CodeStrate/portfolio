@@ -13,7 +13,7 @@ Run `npm run lint` and `npm run build` before publishing. `next.config.ts` uses 
 
 ## Hosting on Vercel
 
-Production site: [hardik-sharma-portfolio-chi.vercel.app](https://hardik-sharma-portfolio-chi.vercel.app/). The `vercel.json` configuration serves the static `out/` export. To publish from this checkout, run `bunx vercel deploy --prod --scope codestrates-projects`.
+Production site: [hardiks-devfolio.vercel.app](https://hardiks-devfolio.vercel.app/). The `vercel.json` configuration serves the static `out/` export. To publish from this checkout, run `bunx vercel deploy --prod --scope codestrates-projects`.
 
 ## Hosting on UNO Q
 
