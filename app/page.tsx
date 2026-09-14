@@ -1,59 +1,54 @@
 import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ProjectCard } from "@/components/ui/ProjectCard";
-import ShaderBackground from "@/components/shader/ShaderBackgroundLoader";
+import { ProjectExplorer } from "@/components/ProjectExplorer";
+import { SystemsConsole } from "@/components/SystemsConsole";
 import { profile, projects } from "@/lib/content";
 
 export default function Home() {
-  const selectedProjects = projects.slice(0, 2);
-
   return (
     <>
-      <section className="relative flex min-h-[85vh] items-center overflow-hidden">
-        <ShaderBackground />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-base/10 to-base" />
-        <Container>
-          <p className="mb-4 font-mono text-sm uppercase tracking-[0.3em] text-overlay1">
-            {profile.title}
-          </p>
-          <h1 className="max-w-3xl font-serif text-5xl italic leading-tight text-text md:text-7xl">
-            {profile.name}
-          </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-overlay2 md:text-lg">
-            {profile.summary}
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/projects"
-              className="rounded-full bg-blue px-6 py-2.5 text-sm font-medium text-crust transition-opacity hover:opacity-90"
-            >
-              View Projects
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-surface2 px-6 py-2.5 text-sm font-medium text-text transition-colors hover:border-blue/50 hover:text-blue"
-            >
-              Get in Touch
-            </Link>
+      <section className="hero-section" id="top">
+        <div className="page-shell">
+          <div className="hero-kicker"><span className="status-dot" /> AI / ML ENGINEER <span className="hero-location">GURUGRAM, INDIA · AVAILABLE REMOTELY</span></div>
+          <div className="hero-grid">
+            <div className="hero-copy">
+              <p className="hero-intro">Hi, I&apos;m Hardik Sharma.</p>
+              <h1>Building AI<br />that <em>works.</em></h1>
+              <p className="hero-description">I turn models into useful systems: retrieval that finds the right answer, agents that handle real files, and tools that make shipping easier.</p>
+              <div className="hero-actions">
+                <a className="button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
+                <a className="button-link" href={`mailto:${profile.email}`}>Let&apos;s talk <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+            <SystemsConsole />
           </div>
-        </Container>
+          <div className="hero-bottom"><span>SCROLL TO EXPLORE</span><span>BUILD / EVALUATE / SHIP</span></div>
+        </div>
       </section>
 
-      <section className="py-24">
-        <Container>
-          <SectionHeading eyebrow="Selected Work" title="Recent Projects" />
-          <div className="grid gap-6 md:grid-cols-2">
-            {selectedProjects.map((project) => (
-              <ProjectCard key={project.name} project={project} />
-            ))}
-          </div>
-          <div className="mt-10">
-            <Link href="/projects" className="text-sm text-blue hover:underline">
-              View all projects &rarr;
-            </Link>
-          </div>
-        </Container>
+      <section className="signal-strip" aria-label="Areas of work">
+        <div className="page-shell signal-inner"><span>01 / AGENTIC WORKFLOWS</span><span>02 / MODEL EVALUATION</span><span>03 / SEARCH & RETRIEVAL</span><span>04 / DEVELOPER TOOLS</span></div>
+      </section>
+
+      <section className="work-section page-shell" id="work">
+        <div className="section-heading-row">
+          <div><p className="section-kicker">01 / SELECTED WORK</p><h2>Things I&apos;ve <em>built.</em></h2></div>
+          <p>Public code, working demos, and model artifacts. Pick a lane and take a closer look.</p>
+        </div>
+        <ProjectExplorer projects={projects.slice(0, 6)} />
+        <div className="more-work"><Link href="/projects">Explore all {projects.length} projects <span aria-hidden="true">↗</span></Link></div>
+      </section>
+
+      <section className="approach-section">
+        <div className="page-shell approach-grid">
+          <div><p className="section-kicker">02 / APPROACH</p><h2>Curiosity is good.<br /><em>Proof is better.</em></h2></div>
+          <div className="approach-copy"><p>I like the messy middle between a promising model and a dependable product. That means testing failure modes, making outputs inspectable, and building tools around the people who use them.</p><div className="approach-links"><Link href="/experience">Experience <span aria-hidden="true">↗</span></Link><Link href="/about">More about me <span aria-hidden="true">↗</span></Link></div></div>
+        </div>
+      </section>
+
+      <section className="contact-banner page-shell" id="contact">
+        <p className="section-kicker">03 / GET IN TOUCH</p>
+        <h2>Have a hard problem?<br /><em>Let&apos;s build.</em></h2>
+        <a href={`mailto:${profile.email}`}>{profile.email}<span aria-hidden="true">↗</span></a>
       </section>
     </>
   );

@@ -4,22 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { profile } from "@/lib/content";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/projects", label: "Work" },
   { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About" },
 ];
 
 export function Nav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -34,20 +30,20 @@ export function Nav() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-surface0/50 bg-base/80 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="font-serif text-lg italic text-text">
-          Hardik Sharma
+    <header className="site-header">
+      <div className="page-shell nav-inner">
+        <Link href="/" className="brand-link" aria-label="Hardik Sharma, home" onClick={() => setMenuOpen(false)}>
+          <span className="brand-mark">H<span>S</span></span><span className="brand-name">Hardik Sharma<span>.</span></span>
         </Link>
 
-        <nav className="hidden gap-8 font-mono text-sm md:flex">
+        <nav className="desktop-nav" aria-label="Main navigation">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={clsx(
-                "transition-colors",
-                isActive(item.href) ? "text-blue" : "text-overlay1 hover:text-text",
+                "nav-link",
+                isActive(item.href) && "active",
               )}
             >
               {item.label}
@@ -55,47 +51,38 @@ export function Nav() {
           ))}
         </nav>
 
+        <a className="nav-contact" href={`mailto:${profile.email}`}>Let&apos;s talk <span aria-hidden="true">↗</span></a>
+
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className="flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="mobile-menu-button"
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
         >
-          <span
-            className={clsx(
-              "h-px w-5 bg-text transition-transform",
-              menuOpen && "translate-y-[3.5px] rotate-45",
-            )}
-          />
-          <span
-            className={clsx(
-              "h-px w-5 bg-text transition-transform",
-              menuOpen && "-translate-y-[3.5px] -rotate-45",
-            )}
-          />
+          <span className={clsx(menuOpen && "open-first")} />
+          <span className={clsx(menuOpen && "open-last")} />
         </button>
       </div>
 
       <div
         className={clsx(
-          "overflow-hidden bg-mantle transition-[max-height,opacity] duration-300 md:hidden",
-          menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0",
+          "mobile-nav-wrap",
+          menuOpen ? "is-open" : "",
         )}
       >
-        <nav className="flex flex-col gap-1 px-6 pb-4 font-mono text-sm">
+        <nav className="mobile-nav" aria-label="Mobile navigation">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={clsx(
-                "rounded px-2 py-2 transition-colors",
-                isActive(item.href) ? "text-blue" : "text-overlay1 hover:text-text",
-              )}
+              onClick={() => setMenuOpen(false)}
+              className={clsx("nav-link", isActive(item.href) && "active")}
             >
               {item.label}
             </Link>
           ))}
+          <Link href="/contact" className={clsx("nav-link", isActive("/contact") && "active")} onClick={() => setMenuOpen(false)}>Contact</Link>
         </nav>
       </div>
     </header>

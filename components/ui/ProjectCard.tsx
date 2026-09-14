@@ -1,35 +1,56 @@
 import type { ProjectEntry } from "@/lib/content";
 
-export function ProjectCard({ project }: { project: ProjectEntry }) {
+const visualLabels: Record<ProjectEntry["visual"], string[]> = {
+  hub: ["checkpoint.bin", "verify ✓", "publish → hub"],
+  arena: ["task_01", "pass / fail", "leaderboard ↑"],
+  search: ["query", "vector + BM25", "sources ↗"],
+  documents: ["PDF", "DOCX", "XLSX", "PPTX"],
+  pedagogy: ["textbook.pdf", "structured.json", "class.xlsx"],
+  data: ["question", "SELECT *", "insight ↗"],
+  models: ["dataset", "LoRA", "model hub ↗"],
+  graph: ["node A", "edge", "node B"],
+};
+
+export function ProjectCard({ project, index }: { project: ProjectEntry; index: number }) {
   return (
-    <div className="rounded-lg border border-surface0 bg-mantle/60 p-6 transition-colors hover:border-blue/40">
-      <div className="flex items-baseline justify-between gap-4">
-        <h3 className="text-lg font-semibold text-text">{project.name}</h3>
-        <span className="shrink-0 font-mono text-xs text-overlay1">{project.date}</span>
+    <article className="project-card">
+      <div className={`project-visual visual-${project.visual}`} aria-hidden="true">
+        <div className="visual-topline">
+          <span>H/S · {String(index + 1).padStart(2, "0")}</span>
+          <span>{project.category}</span>
+        </div>
+        <div className="visual-orbit visual-orbit-one" />
+        <div className="visual-orbit visual-orbit-two" />
+        <div className="visual-core"><span>{project.name.slice(0, 2).toUpperCase()}</span></div>
+        <div className="visual-flow">
+          {visualLabels[project.visual].map((label, labelIndex) => (
+            <span key={label}>
+              {labelIndex > 0 && <i aria-hidden="true">→</i>}
+              {label}
+            </span>
+          ))}
+        </div>
       </div>
-      <p className="mt-1 font-mono text-xs text-overlay0">{project.stack}</p>
-      <div className="mt-4 space-y-2">
-        {project.description.map((paragraph) => (
-          <p key={paragraph} className="text-sm leading-relaxed text-overlay2">
-            {paragraph}
-          </p>
-        ))}
-      </div>
-      {project.links && project.links.length > 0 ? (
-        <div className="mt-4 flex flex-wrap gap-4">
-          {project.links.map((link) => (
-            <a
-              key={link.url}
-              href={link.url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm text-blue underline-offset-4 hover:underline"
-            >
-              {link.label} &rarr;
+      <div className="project-body">
+        <div className="project-meta"><span>{project.eyebrow}</span><span>{project.date}</span></div>
+        <h3>{project.name}</h3>
+        <p className="project-tagline">{project.tagline}</p>
+        <p className="project-outcome">{project.outcome}</p>
+        <div className="project-tags" aria-label="Technologies">
+          {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+        </div>
+        <details className="project-details">
+          <summary>What I built <span aria-hidden="true">＋</span></summary>
+          {project.description.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        </details>
+        <div className="project-links">
+          {project.links?.map((link) => (
+            <a href={link.url} key={link.url} target="_blank" rel="noopener noreferrer">
+              {link.label}<span aria-hidden="true">↗</span>
             </a>
           ))}
         </div>
-      ) : null}
-    </div>
+      </div>
+    </article>
   );
 }

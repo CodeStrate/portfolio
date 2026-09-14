@@ -1,5 +1,3 @@
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SkillBadge } from "@/components/ui/SkillBadge";
 import { profile, education, skills } from "@/lib/content";
 
@@ -9,39 +7,13 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <Container className="py-24">
-      <SectionHeading eyebrow="About" title="Background" />
-      <p className="max-w-2xl text-base leading-relaxed text-overlay2 md:text-lg">
-        {profile.summary}
-      </p>
-
-      <div className="mt-16">
-        <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-overlay1">Education</h3>
-        <div className="mt-4 border-b border-surface0 pb-8">
-          <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-            <h4 className="text-lg font-semibold text-text">{education.institution}</h4>
-            <span className="font-mono text-xs text-overlay1">{education.dateRange}</span>
-          </div>
-          <p className="mt-1 text-sm text-overlay2">{education.degree}</p>
-          <p className="font-mono text-xs text-overlay0">{education.location}</p>
-        </div>
+    <div className="page-shell inner-page">
+      <div className="inner-hero"><p className="section-kicker">THE PERSON / BEHIND THE SYSTEMS</p><h1>Curious by nature.<br /><em>Practical by design.</em></h1><p>{profile.summary}</p></div>
+      <div className="about-layout">
+        <section className="about-story"><p className="section-kicker">01 / HOW I WORK</p><h2>From a model<br />to a useful thing.</h2><p>I work across the space between research and product: shaping data, building agent workflows, testing retrieval, and packaging the result so it can be used and improved.</p><p>The projects here are a record of that process. Some are published tools, some are deployed interfaces, and some are still experiments in progress.</p></section>
+        <section className="education-panel"><p className="section-kicker">02 / EDUCATION</p><h2>{education.institution}</h2><p>{education.degree}</p><div><span>{education.dateRange}</span><span>{education.location}</span></div></section>
       </div>
-
-      <div className="mt-16">
-        <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-overlay1">Skills</h3>
-        <div className="mt-4 space-y-8">
-          {skills.map((group) => (
-            <div key={group.category}>
-              <p className="mb-3 text-sm text-text">{group.category}</p>
-              <div className="flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <SkillBadge key={skill} label={skill} accent={group.accent} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Container>
+      <section className="skills-section"><div className="section-heading-row"><div><p className="section-kicker">03 / TOOLKIT</p><h2>The <em>building blocks.</em></h2></div><p>A mix of model work, backend systems, and the tools that connect them.</p></div><div className="skills-grid">{skills.map((group) => <div className="skill-panel" key={group.category}><h3>{group.category}</h3><div>{group.skills.map((skill) => <SkillBadge key={skill} label={skill} accent={group.accent} />)}</div></div>)}</div></section>
+    </div>
   );
 }

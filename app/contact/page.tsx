@@ -1,5 +1,3 @@
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { profile } from "@/lib/content";
 
 export const metadata = {
@@ -16,28 +14,9 @@ const CONTACT_LINKS = [
 
 export default function ContactPage() {
   return (
-    <Container className="py-24">
-      <SectionHeading eyebrow="Get in Touch" title="Contact" />
-      <p className="max-w-xl text-base leading-relaxed text-overlay2">
-        Open to interesting AI/ML engineering work, freelance collaborations, and conversations
-        about LLMs, agents, and fine-tuning. Reach out through any of the channels below.
-      </p>
-      <div className="mt-12 divide-y divide-surface0 border-t border-surface0">
-        {CONTACT_LINKS.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-            rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-            className="group flex items-center justify-between py-5 transition-colors hover:text-blue"
-          >
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-overlay1 group-hover:text-blue">
-              {link.label}
-            </span>
-            <span className="text-text group-hover:text-blue">{link.value} &rarr;</span>
-          </a>
-        ))}
-      </div>
-    </Container>
+    <div className="page-shell inner-page contact-page">
+      <div className="inner-hero"><p className="section-kicker">CONTACT / OPEN CHANNEL</p><h1>Let&apos;s make<br /><em>something useful.</em></h1><p>Open to AI/ML engineering roles, collaborations, and thoughtful conversations about models, agents, and retrieval.</p><a className="contact-email" href={`mailto:${profile.email}`}>{profile.email}<span aria-hidden="true">↗</span></a></div>
+      <div className="contact-links"><p className="section-kicker">FIND ME ELSEWHERE</p>{CONTACT_LINKS.filter((link) => link.label !== "Email").map((link) => <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"><span>{link.label}</span><span>{link.value}</span><span aria-hidden="true">↗</span></a>)}</div>
+    </div>
   );
 }

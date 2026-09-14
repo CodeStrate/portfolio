@@ -25,7 +25,14 @@ export interface ProjectLink {
 }
 
 export interface ProjectEntry {
+  id: string;
   name: string;
+  category: "AI systems" | "Developer tools" | "Data & search";
+  eyebrow: string;
+  tagline: string;
+  outcome: string;
+  tags: string[];
+  visual: "hub" | "arena" | "search" | "documents" | "pedagogy" | "data" | "models" | "graph";
   stack: string;
   date: string;
   description: string[];
@@ -51,7 +58,7 @@ export const profile: Profile = {
   name: "Hardik Sharma",
   title: "AI/ML Engineer",
   summary:
-    "AI/ML Engineer with 1.5+ years of production experience shipping LLMs, RAG pipelines, agents, and fine-tuned open-source models across fintech and edtech. Comfortable across the full model lifecycle: dataset construction, LoRA fine-tuning, agentic workflow design, and MLOps observability. Two reasoning-distilled models published to Hugging Face Hub with 2000+ combined downloads.",
+    "AI/ML engineer building LLM workflows, retrieval systems, developer tools, and fine-tuned models. I focus on practical deployment, measurable behavior, and interfaces people can use.",
   email: "sharmahardik0256@gmail.com",
   links: {
     github: "https://github.com/CodeStrate",
@@ -103,37 +110,141 @@ export const experience: ExperienceEntry[] = [
 
 export const projects: ProjectEntry[] = [
   {
+    id: "hf-publish",
     name: "hf-publish-mcp",
+    category: "Developer tools",
+    eyebrow: "01 / Developer infrastructure",
+    tagline: "The missing publish button for model builders.",
+    outcome: "Open-source MCP server · npm package",
+    tags: ["TypeScript", "Bun", "MCP", "Hugging Face"],
+    visual: "hub",
     stack: "TypeScript, Bun, MCP, Hugging Face Hub, npm",
-    date: "Jun 2026",
+    date: "2026",
     description: [
-      "Built and published an open-source stdio MCP server for fine-tuners to manage HF Hub repositories, featuring background upload tracking with phase/file-level progress, file integrity verification, surgical model-card edits with dry-run support, and job persistence across server restarts. 700+ cumulative downloads.",
-    ],
-    links: [{ label: "View on npm", url: "https://www.npmjs.com/package/hf-publish-mcp" }],
-  },
-  {
-    name: "Claude Distilled Fine-Tuned Models",
-    stack: "Python, Unsloth, Llama 3.2 1B & 3B, Kaggle T4, Hugging Face",
-    date: "May 2026",
-    description: [
-      "Distilled Claude Opus 4.6/4.7 reasoning traces into Llama 3.2 1B/3B via Unsloth LoRA (r=32/64) on an 8.7K-example dataset; registered thinking tokens as special embeddings before adapter training to enforce clean reasoning boundaries, dropping loss from 2.14 to 1.74 on the 3B run.",
-      "Multi-stage training across RTX 3050 (WSL2) and Kaggle T4; resolved tokenizer-embedding mismatch via a two-step GGUF merge. Published 2 models to HF Hub with 2000+ combined downloads.",
+      "A local MCP server for model publishers. It uploads checkpoints in the background, tracks file-level progress, checks repository completeness, and edits model cards with a reviewable dry run. Jobs persist across restarts.",
     ],
     links: [
-      {
-        label: "View on HF Hub",
-        url: "https://huggingface.co/codestrate/Llama3.2-3B-Claude-Reasoning-Distill",
-      },
+      { label: "Source code", url: "https://github.com/CodeStrate/hf-publish-mcp" },
+      { label: "npm package", url: "https://www.npmjs.com/package/hf-publish-mcp" },
     ],
   },
   {
+    id: "gauntlet",
     name: "LLM Gauntlet",
-    stack: "Next.js, Tailwind CSS, Python, LM Studio, Vercel",
-    date: "Apr 2026",
+    category: "AI systems",
+    eyebrow: "02 / Evaluation",
+    tagline: "Coding models, tested on actual engineering work.",
+    outcome: "7 backend task types · public leaderboard",
+    tags: ["React", "TypeScript", "Evaluation", "Local LLMs"],
+    visual: "arena",
+    stack: "React, TypeScript, Vite, local LLMs",
+    date: "2026",
     description: [
-      "Designed a structured eval framework benchmarking 15+ local model configs across 7 coding-task types (FIM parsing, async refactoring, race-condition detection, agentic workflow generation) with a multi-criteria scoring rubric, deployed as a live public leaderboard.",
+      "An evaluation site for open-source coding models, scored on seven backend tasks including race-condition detection, async refactoring, and distributed job scheduling. The public repository contains the UI, scoring components, and leaderboard.",
     ],
-    links: [{ label: "View live", url: "https://llmarena-ten.vercel.app/" }],
+    links: [
+      { label: "Explore the site", url: "https://llm-gauntlet-blog.vercel.app/" },
+      { label: "Source code", url: "https://github.com/CodeStrate/LLM-Gauntlet-BlogSite" },
+    ],
+  },
+  {
+    id: "semantic-search",
+    name: "Semantic Search Engine",
+    category: "Data & search",
+    eyebrow: "03 / Retrieval",
+    tagline: "Finding the right passage when keywords fall short.",
+    outcome: "Hybrid vector + BM25 retrieval · cited results",
+    tags: ["Python", "FastAPI", "ChromaDB", "BM25"],
+    visual: "search",
+    stack: "Python, FastAPI, ChromaDB, BM25",
+    date: "2025",
+    description: [
+      "A document-search API for machinery safety material. It ingests PDFs, builds embeddings, combines vector similarity with BM25 lexical retrieval, and returns source-aware passages through a FastAPI endpoint.",
+    ],
+    links: [{ label: "Source code", url: "https://github.com/CodeStrate/semantic_search_engine" }],
+  },
+  {
+    id: "document-skills",
+    name: "Document Skills Agent",
+    category: "AI systems",
+    eyebrow: "04 / Agentic workflows",
+    tagline: "An assistant that can actually work with files.",
+    outcome: "PDF · DOCX · XLSX · PPTX workflows",
+    tags: ["Python", "Agno", "Streamlit", "Docker"],
+    visual: "documents",
+    stack: "Python, Agno, Streamlit, Docker",
+    date: "2026",
+    description: [
+      "A document-processing assistant with specialized skills for reading, creating, and editing Office files and PDFs. It includes model selection, file uploads, downloadable outputs, and a Docker setup.",
+    ],
+    links: [{ label: "Source code", url: "https://github.com/CodeStrate/Document_Skills_Agent" }],
+  },
+  {
+    id: "pedagogy-agent",
+    name: "Pedagogy Agent",
+    category: "AI systems",
+    eyebrow: "05 / Education AI",
+    tagline: "From textbook PDFs to structured teaching material.",
+    outcome: "PDF → pedagogical JSON → Excel workbooks",
+    tags: ["TypeScript", "Mastra", "Bun", "Docker"],
+    visual: "pedagogy",
+    stack: "TypeScript, Mastra, Bun, Docker",
+    date: "2026",
+    description: [
+      "Mastra agents structure textbook content into pedagogical JSON. A separate Bun CLI converts the output into per-class Excel workbooks, with a shared workspace and Docker support.",
+    ],
+    links: [{ label: "Source code", url: "https://github.com/CodeStrate/pedagogy-agent-mastra" }],
+  },
+  {
+    id: "vigilius",
+    name: "Vigilius Analyst",
+    category: "Data & search",
+    eyebrow: "06 / Data agents",
+    tagline: "Ask a dataset a question in plain English.",
+    outcome: "Natural language → SQL → analysis",
+    tags: ["Python", "LangGraph", "SQL", "Streamlit"],
+    visual: "data",
+    stack: "Python, LangGraph, SQL, Streamlit",
+    date: "2025",
+    description: [
+      "A Streamlit analysis assistant that accepts CSV, Excel, and SQLite data, generates and validates SQL from natural-language questions, and returns results with streaming responses and session history.",
+    ],
+    links: [{ label: "Source code", url: "https://github.com/CodeStrate/Vigilius_Analyst" }],
+  },
+  {
+    id: "distilled-models",
+    name: "Reasoning-Distilled Models",
+    category: "AI systems",
+    eyebrow: "07 / Model research",
+    tagline: "Teaching smaller models to reason more clearly.",
+    outcome: "Llama 3.2 1B and 3B · published on Hugging Face",
+    tags: ["Python", "Unsloth", "LoRA", "Llama 3.2"],
+    visual: "models",
+    stack: "Python, Unsloth, LoRA, Hugging Face",
+    date: "2026",
+    description: [
+      "Fine-tuned Llama 3.2 1B and 3B models on distilled reasoning examples using Unsloth and LoRA. The published model cards document the training setup and provide downloadable weights.",
+    ],
+    links: [
+      { label: "3B model", url: "https://huggingface.co/codestrate/Llama3.2-3B-Claude-Reasoning-Distill" },
+      { label: "1B model", url: "https://huggingface.co/codestrate/Llama3.2-1B-Claude-Opus-Reasoning-Distill" },
+    ],
+  },
+  {
+    id: "pixidb",
+    name: "PixiDB",
+    category: "Data & search",
+    eyebrow: "08 / In progress",
+    tagline: "A small local graph database experiment.",
+    outcome: "Early-stage Python project",
+    tags: ["Python", "Graph data", "In progress"],
+    visual: "graph",
+    stack: "Python, graph data",
+    date: "2026",
+    description: [
+      "An early-stage local graph database. The public repository has source code and tests; its README is still a stub, so this is a look at ongoing work rather than a finished product.",
+    ],
+    links: [{ label: "Source code", url: "https://github.com/CodeStrate/pixiDB" }],
   },
 ];
 
