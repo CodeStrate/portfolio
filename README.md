@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hardik Sharma — Portfolio
 
-## Getting Started
+A static Next.js portfolio for AI systems, model evaluation, retrieval, and developer tools. Project summaries and links are maintained in [`lib/content.ts`](lib/content.ts). The homepage shows six selected projects; `/projects/` shows the full archive with client-side filters and expandable details.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run `npm run lint` and `npm run build` before publishing. `next.config.ts` uses `output: "export"`, so the production artifact is the `out/` directory. The project does not need a Node.js process at runtime.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Hosting on UNO Q
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build on a development machine, then copy **only** `out/` to a versioned directory on `/mnt/aistuff/`. Serve it with a small static web server or reverse proxy. Keep `node_modules/`, `.next/`, and the source checkout off the board's eMMC; they are build-time assets and are not needed to serve the site.
 
-## Learn More
+For a local smoke test, from this repository:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+python3 -m http.server 8765 --directory out
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The September 2026 export is about 1.5 MB. A localhost-only Python static-server benchmark on UNO Q used about 18–19 MB RSS over 100 requests. That is a measurement of Python's simple server, not a production web-server sizing guarantee. Build on another machine to avoid competing with the board's agentic job-search loop for RAM and CPU.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Content notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Keep project claims tied to the linked public repository, model card, or demo. PixiDB is explicitly marked as early-stage until its public documentation matures. No live GitHub API calls are made by the site, so the portfolio keeps working if GitHub is temporarily unavailable.
