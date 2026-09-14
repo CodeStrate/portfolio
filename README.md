@@ -11,6 +11,10 @@ npm run dev
 
 Run `npm run lint` and `npm run build` before publishing. `next.config.ts` uses `output: "export"`, so the production artifact is the `out/` directory. The project does not need a Node.js process at runtime.
 
+## Hosting on Vercel
+
+Production site: [hardik-sharma-portfolio-chi.vercel.app](https://hardik-sharma-portfolio-chi.vercel.app/). The `vercel.json` configuration serves the static `out/` export. To publish from this checkout, run `bunx vercel deploy --prod --scope codestrates-projects`.
+
 ## Hosting on UNO Q
 
 Build on a development machine, then copy **only** `out/` to a versioned directory on `/mnt/aistuff/`. Serve it with a small static web server or reverse proxy. Keep `node_modules/`, `.next/`, and the source checkout off the board's eMMC; they are build-time assets and are not needed to serve the site.
